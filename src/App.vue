@@ -7,7 +7,7 @@
 
     <employee-form @add:employee="addEmployee" />
     <employee-table
-      :employees="employees"
+      :employees="sortedEmployees"
       @delete:employee="deleteEmployee"
       @edit:employee="editEmployee"
     />
@@ -32,6 +32,14 @@ export default {
 
   mounted() {
     this.getEmployees()
+  },
+
+  computed: {
+    sortedEmployees() {
+      return Array.from(this.employees).sort((a, b) => 
+        a.name.localeCompare(b.name)
+      )
+    }
   },
 
   methods: {
@@ -82,7 +90,7 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    },
+    }
   },
 }
 </script>
